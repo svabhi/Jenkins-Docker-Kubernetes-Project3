@@ -54,7 +54,7 @@ pipeline {
 	    //}
 		stage('publish gcloud') {
 			steps {
-            sh "gcloud docker -- push us.gcr.io/[my-project-id]/[my-artifact-id]"
+            sh "gcloud docker -- push gcr.io/geometric-hull-355406/myimage"
 		}
         }
 	    
