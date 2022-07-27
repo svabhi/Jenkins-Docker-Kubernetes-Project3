@@ -9,7 +9,7 @@ pipeline {
                 CLUSTER_NAME = 'k8s-cluster'
                 LOCATION = 'us-central1-c'
                 CREDENTIALS_ID = 'kubernetes'
-				//GCR_CRED = credentials('kubernetes')
+		
                 GCR_REPO = "gcr.io/geometric-hull-355406}"
 						
 	}
@@ -37,23 +37,22 @@ pipeline {
 	    stage('Build Docker Image') {
 		    steps {
 			    sh 'whoami'
-			    //script {
-				   // myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
-			    //}
+			    script {
+				   myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
+			    }
 		    }
 	    }
 	    
 	    stage("Push Docker Image") {
-		      steps {
-			    
-				    sh 'echo "$GCR_CRED" > abc.json'
-                    sh 'docker login -u _json_key -p "$(cat abc.json)" https://gcr.io'
-                    sh "docker build . -t ${GCR_REPO}:${env.BUILD_ID}"
-                    sh "docker push ${GCR_REPO}:${env.BUILD_ID}"
-                    sh 'docker logout https://gcr.io'
-				
-	        }
-		}
+		    steps {
+			    script {
+				    docker.withRegistry('gcr.io/geometric-hull-355406', 'gcr:kubernetes')
+				    echo "Push Docker Image"
+				    myimage.push("${env.BUILD_ID}")
+		        }
+			
+			}
+		}	
 	    stage('Deploy to K8s') {
 		    steps{
 			    echo "Deployment started ..."
