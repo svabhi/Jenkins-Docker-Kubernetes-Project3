@@ -49,7 +49,7 @@ pipeline {
 				    //myimage.push("${env.BUILD_ID}")
 					//myimage.push("latest")
 				    
-			    }
+			  //  }
 		   // }
 	    //}
 		stage('publish gcloud') {
