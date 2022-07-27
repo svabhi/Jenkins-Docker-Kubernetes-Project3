@@ -40,18 +40,23 @@ pipeline {
 		    }
 	    }
 	    
-	    stage("Push Docker Image") {
-		    steps {
-			    script {
-				    docker.withRegistry('https://gcr.io', 'gcr:kubernetes')
+	    //stage("Push Docker Image") {
+		   // steps {
+			 //   script {
+				    //docker.withRegistry('https://gcr.io', 'gcr:kubernetes')
 					//docker.withRegistry('https://gcr.io', 'gcr:my-credential-id')
-				    echo "Push Docker Image"
-				    myimage.push("${env.BUILD_ID}")
-					myimage.push("latest")
+			//	    echo "Push Docker Image"
+				    //myimage.push("${env.BUILD_ID}")
+					//myimage.push("latest")
 				    
 			    }
-		    }
-	    }
+		   // }
+	    //}
+		stage('publish gcloud') {
+			steps {
+            sh "gcloud docker -- push us.gcr.io/[my-project-id]/[my-artifact-id]"
+		}
+        }
 	    
 	    stage('Deploy to K8s') {
 		    steps{
