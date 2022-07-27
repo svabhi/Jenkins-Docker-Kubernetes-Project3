@@ -51,8 +51,9 @@ pipeline {
                     sh "docker build . -t ${GCR_REPO}:${env.BUILD_ID}"
                     sh "docker push ${GCR_REPO}:${env.BUILD_ID}"
                     sh 'docker logout https://gcr.io'
-				    }
-	    }
+				}
+	        }
+		}
 	    stage('Deploy to K8s') {
 		    steps{
 			    echo "Deployment started ..."
