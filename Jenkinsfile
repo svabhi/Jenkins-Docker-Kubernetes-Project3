@@ -37,9 +37,9 @@ pipeline {
 	    stage('Build Docker Image') {
 		    steps {
 			    sh 'whoami'
-			    script {
+			    //script {
 				   // myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
-			    }
+			    //}
 		    }
 	    }
 	    
