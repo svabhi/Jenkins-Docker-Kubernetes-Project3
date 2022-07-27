@@ -10,7 +10,7 @@ pipeline {
                 LOCATION = 'us-central1-c'
                 CREDENTIALS_ID = 'kubernetes'
 		
-                GCR_REPO = "gcr.io/geometric-hull-355406}"
+                
 						
 	}
 	
