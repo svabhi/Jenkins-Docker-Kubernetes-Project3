@@ -45,13 +45,13 @@ pipeline {
 	    
 	    stage("Push Docker Image") {
 		      steps {
-			    script {
+			    
 				    sh 'echo "$GCR_CRED" > abc.json'
                     sh 'docker login -u _json_key -p "$(cat abc.json)" https://gcr.io'
                     sh "docker build . -t ${GCR_REPO}:${env.BUILD_ID}"
                     sh "docker push ${GCR_REPO}:${env.BUILD_ID}"
                     sh 'docker logout https://gcr.io'
-				}
+				
 	        }
 		}
 	    stage('Deploy to K8s') {
