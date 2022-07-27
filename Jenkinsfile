@@ -43,9 +43,10 @@ pipeline {
 	    stage("Push Docker Image") {
 		    steps {
 			    script {
-				    docker.withRegistry('gcr.io/geometric-hull-355406', 'gcr: kubernetes')
+				    docker.withRegistry('https://us.gcr.io/geometric-hull-355406', 'gcr:kubernetes')
 				    echo "Push Docker Image"
 				    myimage.push("${env.BUILD_ID}")
+					myimage.push("latest")
 				    
 			    }
 		    }
