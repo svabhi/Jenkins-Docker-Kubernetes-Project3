@@ -9,7 +9,7 @@ pipeline {
                 CLUSTER_NAME = 'k8s-cluster'
                 LOCATION = 'us-central1-c'
                 CREDENTIALS_ID = 'kubernetes'
-				GCR_CRED = credentials('kubernetes')
+				//GCR_CRED = credentials('kubernetes')
                 GCR_REPO = "gcr.io/geometric-hull-355406}"
 						
 	}
