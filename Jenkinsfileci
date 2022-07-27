@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+	tools {
+		maven 'Maven'
+	}
+	
+	environment {
+		PROJECT_ID = 'geometric-hull-355406'
+                CLUSTER_NAME = 'k8s-cluster'
+                LOCATION = 'us-central1-c'
+                CREDENTIALS_ID = 'kubernetes'
+		
+                
+						
+	}
+	
+    stages {
+	    stage('Scm Checkout') {
+		    steps {
+			    checkout scm
+		    }
+	    }
+	    
+	    stage('Build') {
+		    steps {
+			    sh 'mvn clean package'
+		    }
+	    }
+	    
+	    stage('Test') {
+		    steps {
+			    echo "Testing..."
+			    sh 'mvn test'
+		    }
+	    }
+	    
+	    stage('Build Docker Image') {
+		    steps {
+			    sh 'whoami'
+			    script {
+				   myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
+			    }
+		    }
+	    }	   
+	    
+    }
+}
