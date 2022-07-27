@@ -44,7 +44,7 @@ pipeline {
 		    steps {
 			    script {
 				    docker.withRegistry('https://gcr.io', 'gcr:kubernetes')
-					docker.withRegistry('https://gcr.io', 'gcr:my-credential-id')
+					//docker.withRegistry('https://gcr.io', 'gcr:my-credential-id')
 				    echo "Push Docker Image"
 				    myimage.push("${env.BUILD_ID}")
 					myimage.push("latest")
