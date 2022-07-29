@@ -48,7 +48,8 @@ pipeline {
 				   gcloud config set account $PROJECT_ID
 				   '''
 				   script { 
-					myimage.push("${env.BUILD_ID}")
+					//myimage.push("${env.BUILD_ID}")
+					docker push us.gcr.io/$PROJECT_ID/image_name:${env.BUILD_ID}
 				   }
 				} 
 			  }
