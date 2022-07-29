@@ -22,6 +22,7 @@ pipeline {
 				withCredentials([file(credentialsId: 'kubernetes', variable: 'GCLOUD_CREDS')]){
                 sh '''
                    gcloud version
+				   gcloud auth login
 				   gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
 				   gcloud config set account $PROJECT_ID
 				   gcloud compute zones list
