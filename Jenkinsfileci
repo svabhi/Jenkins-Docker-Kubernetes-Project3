@@ -46,13 +46,12 @@ pipeline {
                    gcloud version
 		           gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
 				   gcloud config set account $PROJECT_ID
-				   myimage.push("${env.BUILD_ID}")
-				   myimage.push("latest")
-				'''
-		        } 
-			   
-		    }
+				   '''
+				   script { 
+					myimage.push("${env.BUILD_ID}")
+				   }
+				} 
+			  }
 	    }   
-	    
-    }
+	}
 }
