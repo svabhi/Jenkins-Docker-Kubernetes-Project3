@@ -12,6 +12,11 @@ pipeline {
 		}
 	
     stages {
+		stage('Scm Checkout') {
+		    steps {
+			    checkout scm
+		    }
+	    }
         stage('test') {
 		    steps {
 				withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]){
