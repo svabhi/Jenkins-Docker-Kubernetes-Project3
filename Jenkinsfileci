@@ -41,7 +41,30 @@ pipeline {
 				   myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
 			    }
 		    }
-	    }	   
+	    }	
+
+		stage('Build Docker Image') {
+		    steps {
+			    sh 'whoami'
+			    script {
+				   myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
+			    }
+		    }
+	    }
+		stage("Push Docker Image") {
+		   steps {
+			   withCredentials([file(credentialsId: 'kubernetes', variable: 'GCLOUD_CREDS')]){
+                sh '''
+                   gcloud version
+		           gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
+				   gcloud config set account $PROJECT_ID
+				   myimage.push("${env.BUILD_ID}")
+				   myimage.push("latest")
+				   	'''
+		        } 
+			   
+		    }
+	    }   
 	    
     }
 }
