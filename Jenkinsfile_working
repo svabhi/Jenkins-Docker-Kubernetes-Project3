@@ -9,10 +9,7 @@ pipeline {
                 CLUSTER_NAME = 'k8s-cluster'
                 LOCATION = 'us-central1-c'
                 CREDENTIALS_ID = 'kubernetes'
-		
-                
-						
-	}
+		}
 	
     stages {
 	    stage('Scm Checkout') {
@@ -35,4 +32,5 @@ pipeline {
 		    }
 	    }
 	}
+}
 }
