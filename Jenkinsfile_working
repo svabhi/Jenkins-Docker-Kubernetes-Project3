@@ -24,6 +24,7 @@ pipeline {
 	    stage('test') {
 		    steps {
 			    sh 'gcloud version'
+				sh 'gcloud compute zones list'
 		    }
 	    }
 	    
