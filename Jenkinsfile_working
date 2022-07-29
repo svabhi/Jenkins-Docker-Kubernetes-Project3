@@ -12,19 +12,14 @@ pipeline {
 		}
 	
     stages {
-	    stage('Scm Checkout') {
-		    steps {
-			    checkout scm
-		    }
-	    }
-	    
-	    stage('test') {
+        stage('test') {
 		    steps {
 				withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]){
                 sh '''
-                sh 'gcloud version'
-				sh 'gcloud compute zones list'
-				sh docker pull busybox
+                   'gcloud version'
+				   'gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
+				   'gcloud compute zones list'
+				   'docker pull busybox'
 				'''
 		    }
 	    }
