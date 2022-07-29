@@ -24,10 +24,8 @@ pipeline {
                 sh '''
                 chmod 600 $GCLOUD_CREDS
                 docker ps
-                //docker pull eu.gcr.io/<reponame>/<image>
                 sh 'gcloud version'
 				sh 'gcloud compute zones list'
-				docker images
 				'''
 		    }
 	    }
