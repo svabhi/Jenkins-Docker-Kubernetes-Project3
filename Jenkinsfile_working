@@ -22,10 +22,9 @@ pipeline {
 		    steps {
 				withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]){
                 sh '''
-                chmod 600 $GCLOUD_CREDS
-                docker ps
                 sh 'gcloud version'
 				sh 'gcloud compute zones list'
+				sh docker pull busybox
 				'''
 		    }
 	    }
