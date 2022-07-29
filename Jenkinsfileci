@@ -57,7 +57,7 @@ pipeline {
 				   gcloud config set account $PROJECT_ID
 				   myimage.push("${env.BUILD_ID}")
 				   myimage.push("latest")
-				   	'''
+				'''
 		        } 
 			   
 		    }
