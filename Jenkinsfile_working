@@ -5,10 +5,13 @@ pipeline {
 	}
 	
 	environment {
-		dockerImage =''
-		registry = "amit873/test77" 
-	        registryCredential = 'dockerhub_id' 
-			
+		PROJECT_ID = 'geometric-hull-355406'
+                CLUSTER_NAME = 'k8s-cluster'
+                LOCATION = 'us-central1-c'
+                CREDENTIALS_ID = 'kubernetes'
+		
+                
+						
 	}
 	
     stages {
@@ -24,17 +27,33 @@ pipeline {
 		    }
 	    }
 	    
+	    stage('Test') {
+		    steps {
+			    echo "Testing..."
+			    sh 'mvn test'
+		    }
+	    }
 	    
+	    stage('Build Docker Image') {
+		    steps {
+			    sh 'whoami'
+			    script {
+				   myimage = docker.build("gcr.io/$PROJECT_ID/image:${env.BUILD_ID}")
+			    }
+		    }
+	    }	   
+
+		/stage("Push Docker Image") {
+		   steps {
+			   script {
+				    docker.withRegistry('https://gcr.io', 'gcr:kubernetes')
+				    echo "Push Docker Image"
+				    myimage.push("${env.BUILD_ID}")
+					myimage.push("latest")
+
+			   }
+		    }
+	    }
 	    
-	    stage('Building our image') { 
-            	steps { 
-                	script { 
-                    		dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                	}
-            	} 
-           }
-	    
-	    
-	   
     }
 }
