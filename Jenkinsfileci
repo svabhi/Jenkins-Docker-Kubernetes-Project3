@@ -49,7 +49,7 @@ pipeline {
 				   '''
 				   script { 
 					//myimage.push("${env.BUILD_ID}")
-					docker push myimage
+					docker images ls
 				   }
 				} 
 			  }
